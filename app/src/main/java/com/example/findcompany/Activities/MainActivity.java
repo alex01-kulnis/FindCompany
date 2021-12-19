@@ -1,4 +1,4 @@
-package com.example.findcompany;
+package com.example.findcompany.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.findcompany.Database.DBHelper;
+import com.example.findcompany.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,11 +48,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Заполние все поля!",Toast.LENGTH_SHORT).show();
                 else {
                         Boolean checkUser = dbHelper.CheckUser(uniquelogin);
-                        if (checkUser == false){
+                        if (checkUser == false) {
                             Boolean insert = dbHelper.insertData(uniquelogin,pass,first,second);
-                            if(insert == true){
+                            if(insert == true) {
                                 Toast.makeText(MainActivity.this,"Регистрация прошла успешно",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                int id = dbHelper.CurrentUser(uniquelogin);
+                                intent.putExtra("id", id);
                                 startActivity(intent);
                             }
                             else {

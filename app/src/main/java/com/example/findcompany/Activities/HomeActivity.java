@@ -1,27 +1,24 @@
-package com.example.findcompany;
+package com.example.findcompany.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
+
+import com.example.findcompany.Database.DBHelper;
+import com.example.findcompany.Event;
+import com.example.findcompany.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private Integer id;
     private ListView listViewEvents;
 
     private SQLiteDatabase db;
@@ -31,10 +28,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+
+        Bundle arguments = getIntent().getExtras();
+        id = ((Integer) arguments.get("id"));
+        Log.d("myTag", String.valueOf(id));
 
 //        binging()
-
     }
 
     @Override
@@ -45,9 +45,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void binding() {
         listViewEvents = findViewById(R.id.listViewEvents);
-
         db = new DBHelper(getApplicationContext()).getReadableDatabase();
-
     }
 
     @Override
@@ -63,22 +61,32 @@ public class HomeActivity extends AppCompatActivity {
 
         if (id == R.id.action_item) {
             Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item1) {
             Intent intent = new Intent(getApplicationContext(), СreateActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item2) {
             Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item3) {
             Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item4) {
-            Intent intent = new Intent(getApplicationContext(), ActualNewsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ToDoListActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_item5) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
 

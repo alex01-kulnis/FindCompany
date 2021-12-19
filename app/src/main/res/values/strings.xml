@@ -3,7 +3,8 @@
     <string name="action_item1">Создать событие</string>
     <string name="action_item2">Подтвердить участников</string>
     <string name="action_item3">История посещений</string>
-    <string name="action_item4">Актуальные новости</string>
+    <string name="action_item4">Заметки</string>
+    <string name="action_item5">Выйти</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_event_item">EventItem</string>

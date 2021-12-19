@@ -1,18 +1,23 @@
-package com.example.findcompany;
+package com.example.findcompany.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class СreateActivity extends AppCompatActivity {
+import com.example.findcompany.R;
+
+public class HistoryActivity extends AppCompatActivity {
+
+    private Integer id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
+        setContentView(R.layout.activity_history);
+        Bundle arguments = getIntent().getExtras();
+        id = ((Integer) arguments.get("id"));
     }
 
     @Override
@@ -28,22 +33,32 @@ public class СreateActivity extends AppCompatActivity {
 
         if (id == R.id.action_item) {
             Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item1) {
             Intent intent = new Intent(getApplicationContext(), СreateActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item2) {
             Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item3) {
             Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
         else if (id == R.id.action_item4) {
-            Intent intent = new Intent(getApplicationContext(), ActualNewsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ToDoListActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_item5) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("id", id);
             startActivity(intent);
         }
 
