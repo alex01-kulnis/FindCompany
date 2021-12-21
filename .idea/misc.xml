@@ -11,11 +11,13 @@
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_event_item.xml" value="0.5" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_hictory.xml" value="0.36666666666666664" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_history.xml" value="0.36666666666666664" />
-        <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/content_event_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/events_item.xml" value="0.2653985507246377" />
+        <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/event_confirm_item.xml" value="0.33" />
+        <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/event_history_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/events_item.xml" value="0.33" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/fragment_elem_list.xml" value="0.36666666666666664" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
         <entry key="..\:/androidLabs/FindCompany/app/src/main/res/layout/fragment_second.xml" value="0.36666666666666664" />

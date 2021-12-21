@@ -23,7 +23,7 @@ public class ToDoListActivity extends AppCompatActivity {
     private List<User> users ;
     public EditText nameText,ageText;
     ListView listView ;
-    private Integer id;
+    private Integer id_U;
     private Button addU;
 
     @Override
@@ -31,7 +31,7 @@ public class ToDoListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actual_news);
         Bundle arguments = getIntent().getExtras();
-        id = ((Integer) arguments.get("id"));
+        id_U = ((Integer) arguments.get("id"));
 
         nameText = findViewById(R.id.nameText);
         ageText = findViewById(R.id.ageText);
@@ -68,32 +68,32 @@ public class ToDoListActivity extends AppCompatActivity {
 
         if (id == R.id.action_item) {
             Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item1) {
             Intent intent = new Intent(getApplicationContext(), СreateActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item2) {
             Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item3) {
             Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item4) {
             Intent intent = new Intent(getApplicationContext(), ToDoListActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item5) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

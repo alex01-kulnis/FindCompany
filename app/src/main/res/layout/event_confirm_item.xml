@@ -10,21 +10,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="102dp" />
+        app:layout_constraintGuide_end="114dp" />
 
     <Button
-        android:id="@+id/buttonSend"
-        android:layout_width="79dp"
-        android:layout_height="58dp"
+        android:id="@+id/buttonConfirm"
+        android:layout_width="93dp"
+        android:layout_height="48dp"
         android:layout_marginStart="4dp"
-        android:text="Подать заявку"
-        android:textSize="10sp"
+        android:text="Подтведить"
+        android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toEndOf="@+id/textViewPlaceE"
         app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:layout_constraintVertical_bias="0.551" />
+        app:layout_constraintVertical_bias="0.192" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="93dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:text="Отклонить"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewPlaceE"
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:layout_constraintVertical_bias="0.898" />
 
     <TextView
         android:id="@+id/textViewNameE"
@@ -65,12 +78,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDateAndTime" />
 
+    <TextView
+        android:id="@+id/textViewSecond"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewParticipants" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="117dp" />
+        app:layout_constraintGuide_begin="146dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"

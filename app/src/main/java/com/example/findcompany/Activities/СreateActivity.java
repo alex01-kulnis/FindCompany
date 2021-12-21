@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,7 @@ import java.util.Date;
 
 public class СreateActivity extends AppCompatActivity {
 
-    private Integer id;
+    private int id_U;
     private EditText Name_Event;
     private EditText Place_Event;
     private EditText event_date;
@@ -46,7 +47,10 @@ public class СreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         Bundle arguments = getIntent().getExtras();
-        id = ((Integer) arguments.get("id"));
+        id_U = ((Integer) arguments.get("id"));
+        Log.d("myTag", String.valueOf(id_U));
+
+
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getReadableDatabase();
 
@@ -67,32 +71,32 @@ public class СreateActivity extends AppCompatActivity {
 
         if (id == R.id.action_item) {
             Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item1) {
             Intent intent = new Intent(getApplicationContext(), СreateActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item2) {
             Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item3) {
             Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item4) {
             Intent intent = new Intent(getApplicationContext(), ToDoListActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         else if (id == R.id.action_item5) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("id", id);
+            intent.putExtra("id", id_U);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -176,8 +180,8 @@ public class СreateActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), "Завтра или т.д", Toast.LENGTH_SHORT);toast.show();
                     }
                     else {
-                        dbHelper.CreateEvent(id, name_event, place_event, finalVariant, maxPatt);
-                        dbHelper.CreateEventAdmin(id, name_event, place_event, finalVariant, maxPatt);
+                        dbHelper.CreateEvent(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
+                        dbHelper.CreateEventAdmin(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
                         clearFields();
                         Toast toast = Toast.makeText(getApplicationContext(), "Event добавлен", Toast.LENGTH_SHORT);toast.show();
                     }

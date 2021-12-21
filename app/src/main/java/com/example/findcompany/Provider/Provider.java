@@ -104,7 +104,7 @@ public class Provider extends ContentProvider {
                 throw new IllegalArgumentException("Wrong URI: " + uri);
         }
         db = dbHelper.getWritableDatabase();
-        Cursor cursor = dbHelper.getExpenses(db);
+        Cursor cursor = dbHelper.getUsers(db);
         // просим ContentResolver уведомлять этот курсор
         // об изменениях данных в CONTACT_CONTENT_URI
         cursor.setNotificationUri(getContext().getContentResolver(),
