@@ -160,6 +160,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return "";
     }
+    //registration
+
 
     //createEvent
     public void CreateEvent(Integer id_user,Integer id_creator, String name_event, String place_event, String evnt_date, Integer maxParticipacion) {
@@ -185,6 +187,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("maxParticipants_event", maxParticipacion);
         MyDB.insert("HistoryVisiting",null, contentValues);
     }
+    //createEvent
+
 
     //findCompany
     public Cursor getEvents(SQLiteDatabase db) {
@@ -223,6 +227,13 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("secondname", secname);
         MyDB.insert("ConfirmVisiting",null, contentValues);
     }
+
+    public int CountParticipants(Integer id_eve) {
+        SQLiteDatabase MyDB = this.getReadableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select id_event from HistoryVisiting where id_event = ? ", new String[] {String.valueOf(id_eve)});
+        return cursor.getCount();
+    }
+    //findCompany
 
     //ConfirmActivity
     public Cursor getComfirmEvents(SQLiteDatabase db,String id_c) {

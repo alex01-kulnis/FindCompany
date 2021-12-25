@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     //Data
     CustomListAdapter customListAdapter;
     private String[] expensesStr;
-    private ArrayList<Event> expensesList;
+    private ArrayList<Event> expensesList = new ArrayList<>();
     private DBHelper dbHelper;
     private SQLiteDatabase db;
 
@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         db.close();
     }
@@ -67,28 +67,32 @@ public class HomeActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getReadableDatabase();
-
-        setEvents();
         customListAdapter = new CustomListAdapter(this, expensesList);
         expensesListV.setAdapter(customListAdapter);
+        setEvents();
 
         Button buttonF = findViewById(R.id.buttonFind);
         search = findViewById(R.id.editTextFind);
 
-        buttonF.setOnClickListener(new View.OnClickListener(){
+        buttonF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expensesList = new ArrayList<>();
+
+                if (search.length() == 0) {
+                    setEvents();
+                    return;
+                }
+                expensesList.clear();
                 Cursor cursor = dbHelper.getParticularEvents(search.getText().toString());
 
-                if(cursor.getCount() == 0) {
-                    expensesStr = new String[] {" "};
+                if (cursor.getCount() == 0) {
+                    expensesStr = new String[]{" "};
                     return;
                 }
                 expensesStr = new String[cursor.getCount()];
                 int i = 0;
 
-                while(cursor.moveToNext()) {
+                while (cursor.moveToNext()) {
                     Event expenses = new Event(
                             cursor.getInt(cursor.getColumnIndexOrThrow("id_event")),
                             cursor.getInt(cursor.getColumnIndexOrThrow("id_user")),
@@ -103,9 +107,9 @@ public class HomeActivity extends AppCompatActivity {
                     expensesStr[i++] = expenses.getId_event() + " " + expenses.getId_user() + " " + expenses.getName_event()
                             + "-" + expenses.getPlace_event() + " " + expenses.getDataAndtime_event() + " " + expenses.getMaxParticipants_event();
                 }
-
-                recreate();
-            }});
+                customListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -120,31 +124,26 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_item) {
-            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             intent.putExtra("id", id_U);
             startActivity(intent);
-        }
-        else if (id == R.id.action_item1) {
+        } else if (id == R.id.action_item1) {
             Intent intent = new Intent(getApplicationContext(), СreateActivity.class);
             intent.putExtra("id", id_U);
             startActivity(intent);
-        }
-        else if (id == R.id.action_item2) {
+        } else if (id == R.id.action_item2) {
             Intent intent = new Intent(getApplicationContext(), ConfirmActivity.class);
             intent.putExtra("id", id_U);
             startActivity(intent);
-        }
-        else if (id == R.id.action_item3) {
+        } else if (id == R.id.action_item3) {
             Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
             intent.putExtra("id", id_U);
             startActivity(intent);
-        }
-        else if (id == R.id.action_item4) {
+        } else if (id == R.id.action_item4) {
             Intent intent = new Intent(getApplicationContext(), ToDoListActivity.class);
             intent.putExtra("id", id_U);
             startActivity(intent);
-        }
-        else if (id == R.id.action_item5) {
+        } else if (id == R.id.action_item5) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("id", id_U);
             startActivity(intent);
@@ -154,17 +153,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setEvents() {
-        expensesList = new ArrayList<>();
+        expensesList.clear();
         Cursor cursor = dbHelper.getEvents(db);
 
-        if(cursor.getCount() == 0) {
-            expensesStr = new String[] {" "};
+        if (cursor.getCount() == 0) {
+            expensesStr = new String[]{" "};
             return;
         }
         expensesStr = new String[cursor.getCount()];
         int i = 0;
 
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             Event expenses = new Event(
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_event")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_user")),
@@ -179,45 +178,7 @@ public class HomeActivity extends AppCompatActivity {
             expensesStr[i++] = expenses.getId_event() + " " + expenses.getId_user() + " " + expenses.getName_event()
                     + "-" + expenses.getPlace_event() + " " + expenses.getDataAndtime_event() + " " + expenses.getMaxParticipants_event();
         }
-    }
-
-    private ArrayList<Event> getParticularEvents() {
-
-        ArrayList<Event> a = new ArrayList<>();
-
-        if (search.length() == 0) {
-            return expensesList;
-        }
-        else {
-           Cursor cursor = dbHelper.getParticularEvents(search.getText().toString());
-
-            if(cursor.getCount() == 0) {
-                filterexpensesStr = new String[] {" "};
-            }
-            filterexpensesStr = new String[cursor.getCount()];
-            int i = 0;
-
-            while(cursor.moveToNext()) {
-                Event expenses = new Event(
-                        cursor.getInt(cursor.getColumnIndexOrThrow("id_event")),
-                        cursor.getInt(cursor.getColumnIndexOrThrow("id_user")),
-                        cursor.getInt(cursor.getColumnIndexOrThrow("id_creator")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("name_event")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("place_event")),
-                        cursor.getString(cursor.getColumnIndexOrThrow("dataAndtime_event")),
-                        cursor.getInt(cursor.getColumnIndexOrThrow("maxParticipants_event"))
-                );
-
-                expensesList.add(i, expenses);
-                filterexpensesStr[i++] = expenses.getId_event() + " " + expenses.getId_user() + " " + expenses.getName_event()
-                        + "-" + expenses.getPlace_event() + " " + expenses.getDataAndtime_event() + " " + expenses.getMaxParticipants_event();
-//                CustomListAdapter.updateEventsList(expensesList);
-                return filterEventList;
-           }
-            Log.d("myTag", "Выход в null");
-
-            return a;
-        }
+        customListAdapter.notifyDataSetChanged();
     }
 
     public class CustomListAdapter extends BaseAdapter {
@@ -236,10 +197,14 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         @Override
-        public Object getItem(int i) {return null;}
+        public Object getItem(int i) {
+            return null;
+        }
 
         @Override
-        public long getItemId(int i) {return 0;}
+        public long getItemId(int i) {
+            return 0;
+        }
 
         public void updateEventsList(ArrayList<Event> filteredTasks) {
             ExpensesList.clear();
@@ -261,35 +226,42 @@ public class HomeActivity extends AppCompatActivity {
             itemDate.setText("Время и дата: " + ExpensesList.get(position).getDataAndtime_event());
             itemPar.setText("Кол-во участников: " + ExpensesList.get(position).getMaxParticipants_event());
 
-            Button buttonS= (Button)view.findViewById(R.id.buttonSend);
+            Button buttonS = (Button) view.findViewById(R.id.buttonSend);
 
-            buttonS.setOnClickListener(new View.OnClickListener(){
+            buttonS.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String id_event = ExpensesList.get(position).getId_event();
-                    int id_Event = Integer.parseInt (id_event);
-                    String id_user =  ExpensesList.get(position).getId_user();
+                    int id_Event = Integer.parseInt(id_event);
+                    String id_user = ExpensesList.get(position).getId_user();
                     //int id_User = Integer.parseInt (id_user);
 
+                    String maxParticipacion = ExpensesList.get(position).getMaxParticipants_event();
+                    int MaxParticipacion = Integer.parseInt(maxParticipacion);
+
                     String id_User = Integer.toString(id_U);
-                    boolean isUse = dbHelper.repitEvent(id_User,id_event);
-                    if (isUse){
-                        Toast.makeText(HomeActivity.this,"Вы уже участвуте или ожидаете", Toast.LENGTH_SHORT).show();
+                    boolean isUse = dbHelper.repitEvent(id_User, id_event);
+                    int countOfParticipant = dbHelper.CountParticipants(id_Event);
+                    if (countOfParticipant >= MaxParticipacion)
+                    {
+                        Toast.makeText(HomeActivity.this, "Мест больше нету", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    else{
+                    if (isUse) {
+                        Toast.makeText(HomeActivity.this, "Вы уже участвуте или ожидаете", Toast.LENGTH_SHORT).show();
+                    } else {
                         String surname = dbHelper.currentSecondName(Integer.toString(id_U));
                         String id_creator = ExpensesList.get(position).getId_creator();
-                        int id_Creator = Integer.parseInt (id_creator);
-                        String maxParticipacion = ExpensesList.get(position).getMaxParticipants_event();
-                        int MaxParticipacion = Integer.parseInt (maxParticipacion);
+                        int id_Creator = Integer.parseInt(id_creator);
                         String name_event = ExpensesList.get(position).getName_event();
                         String place_event = ExpensesList.get(position).getPlace_event();
-                        String evnt_date  = ExpensesList.get(position).getDataAndtime_event();
-                        dbHelper.AddConfirmStr(id_Event,id_Creator,id_U,name_event,place_event,evnt_date,MaxParticipacion,surname);
-                        Toast.makeText(HomeActivity.this,"Ожидайте подтверждения или отклонения", Toast.LENGTH_SHORT).show();
+                        String evnt_date = ExpensesList.get(position).getDataAndtime_event();
+                        dbHelper.AddConfirmStr(id_Event, id_Creator, id_U, name_event, place_event, evnt_date, MaxParticipacion, surname);
+                        Toast.makeText(HomeActivity.this, "Ожидайте подтверждения или отклонения", Toast.LENGTH_SHORT).show();
                     }
                     recreate();
-                }});
+                }
+            });
             return view;
         }
     }

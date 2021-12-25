@@ -179,9 +179,13 @@ public class СreateActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), "Некорректная дата", Toast.LENGTH_SHORT);toast.show();
                     }
                     else {
+                        if (maxPatt < 2) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Минимальное кол-во 2 человека!", Toast.LENGTH_SHORT);toast.show();
+                            return;
+                        }
                         dbHelper.CreateEvent(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
 //                        int id_e = DBHelper.CurrentIdEvent(name_event,place_event);
-                        dbHelper.CreateEventAdmin(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
+                       // dbHelper.CreateEventAdmin(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
                         clearFields();
                         Toast toast = Toast.makeText(getApplicationContext(), "Event добавлен", Toast.LENGTH_SHORT);toast.show();
                     }
