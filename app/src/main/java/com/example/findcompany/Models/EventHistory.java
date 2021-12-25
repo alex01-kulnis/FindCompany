@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class EventHistory implements Serializable {
 
-    public EventHistory(int id_event, int id_user,int id_creator, String name_event, String place_event, String dataAndtime_event, int maxParticipants_event) {
+    public EventHistory(int id,int id_event, int id_user,int id_creator, String name_event, String place_event, String dataAndtime_event, int maxParticipants_event) {
+        this.Id = id;
         this.Id_event = id_event;
         this.Id_creator = id_creator;
         this.Id_user = id_user;
@@ -13,6 +14,9 @@ public class EventHistory implements Serializable {
         this.DataAndtime_event = dataAndtime_event;
         this.MaxParticipants_event = maxParticipants_event;
     }
+
+    private int Id;
+    public String getId(){ return Integer.toString(Id);}
 
     private int Id_event;
     public String getId_event(){ return Integer.toString(Id_event);}

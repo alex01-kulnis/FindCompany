@@ -48,8 +48,7 @@ public class СreateActivity extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         id_U = ((Integer) arguments.get("id"));
-        Log.d("myTag", String.valueOf(id_U));
-
+        Log.d("myId", String.valueOf(id_U));
 
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getReadableDatabase();
@@ -151,7 +150,7 @@ public class СreateActivity extends AppCompatActivity {
         //Max_Participation
         Max_Paticipation.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        //createEventBttn
+//        //createEventBttn
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,10 +176,11 @@ public class СreateActivity extends AppCompatActivity {
                     }
 
                     if (datte.getTime() <= System.currentTimeMillis()) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Завтра или т.д", Toast.LENGTH_SHORT);toast.show();
+                        Toast toast = Toast.makeText(getApplicationContext(), "Некорректная дата", Toast.LENGTH_SHORT);toast.show();
                     }
                     else {
                         dbHelper.CreateEvent(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
+//                        int id_e = DBHelper.CurrentIdEvent(name_event,place_event);
                         dbHelper.CreateEventAdmin(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
                         clearFields();
                         Toast toast = Toast.makeText(getApplicationContext(), "Event добавлен", Toast.LENGTH_SHORT);toast.show();

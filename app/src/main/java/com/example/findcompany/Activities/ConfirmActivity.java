@@ -60,18 +60,18 @@ public class ConfirmActivity extends AppCompatActivity {
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getReadableDatabase();
 
-        setHistoryEvents();
+        setConfrimEvents();
         customListAdapter = new CustomListAdapter(this, expensesList);
         expensesListV.setAdapter(customListAdapter);
 
     }
 
-    private void setHistoryEvents()
+    private void setConfrimEvents()
     {
-        Log.d("myTag", "setEvents0");
+
         expensesList = new ArrayList<>();
 
-        Cursor cursor = dbHelper.getHistoryEvents(db, id_U.toString());
+        Cursor cursor = dbHelper.getComfirmEvents(db, id_U.toString());
 
         if(cursor.getCount() == 0) {
             expensesStr = new String[] {" "};
@@ -79,16 +79,18 @@ public class ConfirmActivity extends AppCompatActivity {
         }
         expensesStr = new String[cursor.getCount()];
         int i = 0;
-        Log.d("myTag", "setEvents2");
+
         while(cursor.moveToNext()) {
             ConfirmVisit expenses = new ConfirmVisit(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_event")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_user")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_creator")),
                     cursor.getString(cursor.getColumnIndexOrThrow("name_event")),
                     cursor.getString(cursor.getColumnIndexOrThrow("place_event")),
                     cursor.getString(cursor.getColumnIndexOrThrow("dataAndtime_event")),
-                    cursor.getInt(cursor.getColumnIndexOrThrow("maxParticipants_event"))
+                    cursor.getInt(cursor.getColumnIndexOrThrow("maxParticipants_event")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("secondname"))
             );
 
             expensesList.add(i, expenses);
@@ -187,14 +189,36 @@ public class ConfirmActivity extends AppCompatActivity {
             itemPlace.setText("Место: " + ExpensesList.get(position).getPlace_event());
             itemDate.setText("Время и дата: " + ExpensesList.get(position).getDataAndtime_event());
             itemPar.setText("Кол-во участников: " + ExpensesList.get(position).getMaxParticipants_event());
-            itemSec.setText("Кол-во участников: " + ExpensesList.get(position).getMaxParticipants_event());
+            itemSec.setText("Фамилия кандидата: " + ExpensesList.get(position).getSurname_user());
 
-            Button buttonC= (Button)view.findViewById(R.id.buttonConfirm);
+            Button buttonConf= (Button)view.findViewById(R.id.buttonConfirm);
+            Button buttonCanc= (Button)view.findViewById(R.id.buttonCancel);
 
-            buttonC.setOnClickListener(new View.OnClickListener(){
+            buttonConf.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-//                    dbHelper.SendApp(db,ExpensesList.get(position));
+                    String id = ExpensesList.get(position).getId();
+                    int Id = Integer.parseInt (id);
+                    String id_event = ExpensesList.get(position).getId_event();
+                    int id_Event = Integer.parseInt (id_event);
+                    String id_user =  ExpensesList.get(position).getId_user();
+                    int id_User = Integer.parseInt (id_user);
+                    String id_creator = ExpensesList.get(position).getId_creator();
+                    int id_Creator = Integer.parseInt (id_creator);
+                    String maxParticipacion = ExpensesList.get(position).getMaxParticipants_event();
+                    int MaxParticipacion = Integer.parseInt (maxParticipacion);
+                    String name_event = ExpensesList.get(position).getName_event();
+                    String place_event = ExpensesList.get(position).getPlace_event();
+                    String evnt_date  = ExpensesList.get(position).getDataAndtime_event();
+                    dbHelper.confirmAppAndSend(id_Event,id_User,id_Creator,name_event,place_event,evnt_date,MaxParticipacion);
+                    dbHelper.deleteConfirm(db,ExpensesList.get(position));
+                    recreate();
+                }});
+
+            buttonCanc.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    dbHelper.deleteConfirm(db,ExpensesList.get(position));
                     recreate();
                 }});
             return view;

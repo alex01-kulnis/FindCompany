@@ -112,7 +112,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void setHistoryEvents()
     {
-        Log.d("myTag", "setEvents0");
         expensesList = new ArrayList<>();
 
         Cursor cursor = dbHelper.getHistoryEvents(db, id_U.toString());
@@ -126,6 +125,7 @@ public class HistoryActivity extends AppCompatActivity {
         Log.d("myTag", "setEvents2");
         while(cursor.moveToNext()) {
             EventHistory expenses = new EventHistory(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_event")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_user")),
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_creator")),

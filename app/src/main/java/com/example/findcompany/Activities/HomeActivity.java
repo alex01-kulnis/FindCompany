@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.findcompany.Database.DBHelper;
 import com.example.findcompany.Models.Event;
@@ -50,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         id_U = ((Integer) arguments.get("id"));
-        Log.d("myTag", String.valueOf(id_U));
+        Log.d("myId", String.valueOf(id_U));
 
         binding();
     }
@@ -77,12 +78,6 @@ public class HomeActivity extends AppCompatActivity {
         buttonF.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                Log.d("myTag", "10");
-//                filterEventList = getParticularEvents();
-//                Log.d("myTag", "20");
-//                updateEventsList(filterEventList);
-//                Log.d("myTag", "После update");
-
                 expensesList = new ArrayList<>();
                 Cursor cursor = dbHelper.getParticularEvents(search.getText().toString());
 
@@ -159,7 +154,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setEvents() {
-        Log.d("myTag", "setEvents");
         expensesList = new ArrayList<>();
         Cursor cursor = dbHelper.getEvents(db);
 
@@ -192,7 +186,6 @@ public class HomeActivity extends AppCompatActivity {
         ArrayList<Event> a = new ArrayList<>();
 
         if (search.length() == 0) {
-           Log.d("myTag", "в функции");
             return expensesList;
         }
         else {
@@ -276,15 +269,25 @@ public class HomeActivity extends AppCompatActivity {
                     String id_event = ExpensesList.get(position).getId_event();
                     int id_Event = Integer.parseInt (id_event);
                     String id_user =  ExpensesList.get(position).getId_user();
-                    int id_User = Integer.parseInt (id_user);
-                    String id_creator = ExpensesList.get(position).getId_creator();
-                    int id_Creator = Integer.parseInt (id_creator);
-                    String maxParticipacion = ExpensesList.get(position).getMaxParticipants_event();
-                    int MaxParticipacion = Integer.parseInt (maxParticipacion);
-                    String name_event = ExpensesList.get(position).getName_event();
-                    String place_event = ExpensesList.get(position).getPlace_event();
-                    String evnt_date  = ExpensesList.get(position).getDataAndtime_event();
-                    dbHelper.AddConfirmStr(id_Event,id_Creator,id_User,maxParticipacion,name_event,place_event,MaxParticipacion,evnt_date);
+                    //int id_User = Integer.parseInt (id_user);
+
+                    String id_User = Integer.toString(id_U);
+                    boolean isUse = dbHelper.repitEvent(id_User,id_event);
+                    if (isUse){
+                        Toast.makeText(HomeActivity.this,"Вы уже участвуте или ожидаете", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        String surname = dbHelper.currentSecondName(Integer.toString(id_U));
+                        String id_creator = ExpensesList.get(position).getId_creator();
+                        int id_Creator = Integer.parseInt (id_creator);
+                        String maxParticipacion = ExpensesList.get(position).getMaxParticipants_event();
+                        int MaxParticipacion = Integer.parseInt (maxParticipacion);
+                        String name_event = ExpensesList.get(position).getName_event();
+                        String place_event = ExpensesList.get(position).getPlace_event();
+                        String evnt_date  = ExpensesList.get(position).getDataAndtime_event();
+                        dbHelper.AddConfirmStr(id_Event,id_Creator,id_U,name_event,place_event,evnt_date,MaxParticipacion,surname);
+                        Toast.makeText(HomeActivity.this,"Ожидайте подтверждения или отклонения", Toast.LENGTH_SHORT).show();
+                    }
                     recreate();
                 }});
             return view;

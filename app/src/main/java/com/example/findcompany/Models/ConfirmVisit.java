@@ -4,7 +4,10 @@ import java.io.Serializable;
 
 public class ConfirmVisit implements Serializable {
 
-    public ConfirmVisit(int id_event, int id_user,int id_creator, String name_event, String place_event, String dataAndtime_event, int maxParticipants_event) {
+    public ConfirmVisit(int id,int id_event, int id_user,int id_creator, String name_event, String place_event, String dataAndtime_event, int maxParticipants_event,
+                        String surname) {
+        this.Surname_user = surname;
+        this.Id = id;
         this.Id_event = id_event;
         this.Id_creator = id_creator;
         this.Id_user = id_user;
@@ -13,6 +16,9 @@ public class ConfirmVisit implements Serializable {
         this.DataAndtime_event = dataAndtime_event;
         this.MaxParticipants_event = maxParticipants_event;
     }
+
+    private int Id;
+    public String getId(){ return Integer.toString(Id);}
 
     private int Id_event;
     public String getId_event(){ return Integer.toString(Id_event);}
@@ -29,6 +35,14 @@ public class ConfirmVisit implements Serializable {
     }
     public void setName_event(String info){
         this.Name_event = info;
+    }
+    //
+    private String Surname_user;
+    public String getSurname_user(){
+        return this.Surname_user;
+    }
+    public void setSurname_user(String info){
+        this.Surname_user = info;
     }
     //
     private String Place_event;

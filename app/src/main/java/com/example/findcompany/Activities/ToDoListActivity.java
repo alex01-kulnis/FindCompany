@@ -99,13 +99,6 @@ public class ToDoListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void addUser(View view){
-//        String name = nameText.getText().toString();
-//        int age = Integer.parseInt(ageText.getText().toString());
-//        User user = new User(name, age);
-//        users.add(user);
-//        adapter.notifyDataSetChanged();
-//    }
 
     public void save(View view){
         boolean result = JSONHelper.exportToJSON(this, users);
