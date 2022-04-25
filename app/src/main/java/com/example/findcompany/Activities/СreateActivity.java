@@ -184,8 +184,9 @@ public class СreateActivity extends AppCompatActivity {
                             return;
                         }
                         dbHelper.CreateEvent(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
-//                        int id_e = DBHelper.CurrentIdEvent(name_event,place_event);
-                       // dbHelper.CreateEventAdmin(id_U,id_U, name_event, place_event, finalVariant, maxPatt);
+                        String id_ev = dbHelper.CurrentIdEvent(name_event);
+                        Log.d("id_evnt", id_ev);
+                        dbHelper.CreateEventAdmin(Integer.parseInt(id_ev),id_U,id_U, name_event, place_event, finalVariant, maxPatt);
                         clearFields();
                         Toast toast = Toast.makeText(getApplicationContext(), "Event добавлен", Toast.LENGTH_SHORT);toast.show();
                     }

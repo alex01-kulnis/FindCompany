@@ -88,8 +88,8 @@ public class ConfirmActivity extends AppCompatActivity {
                     cursor.getInt(cursor.getColumnIndexOrThrow("id_creator")),
                     cursor.getString(cursor.getColumnIndexOrThrow("name_event")),
                     cursor.getString(cursor.getColumnIndexOrThrow("place_event")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("dataAndtime_event")),
-                    cursor.getInt(cursor.getColumnIndexOrThrow("maxParticipants_event")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("data_and_time_event")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("max_participants_event")),
                     cursor.getString(cursor.getColumnIndexOrThrow("secondname"))
             );
 
